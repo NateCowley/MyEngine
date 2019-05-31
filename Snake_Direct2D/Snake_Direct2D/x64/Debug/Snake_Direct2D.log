@@ -1,0 +1,36 @@
+﻿  Audio.cpp
+  AudioComponent.cpp
+  AudioPlayer.cpp
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\audioplayer.cpp(266): warning C4244: '=': conversion from 'float' to 'UINT32', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\audioplayer.cpp(267): warning C4244: '=': conversion from 'float' to 'UINT32', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\audioplayer.cpp(268): warning C4244: '=': conversion from 'float' to 'UINT32', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\audioplayer.cpp(269): warning C4244: '=': conversion from 'float' to 'UINT32', possible loss of data
+  DrawableObject.cpp
+  Engine.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  EngineTools.cpp
+  Graphics.cpp
+  Image.cpp
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\image.cpp(47): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Snake.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\snake.cpp(10): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\snake.cpp(114): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\snake.cpp(119): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\snake.cpp(121): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\snake.cpp(138): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\snake.cpp(138): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\snake.cpp(139): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\snake.cpp(139): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  SnakeGame.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\snakegame.cpp(15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\snakegame.cpp(65): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\snakegame.cpp(65): warning C4244: 'argument': conversion from 'LONG' to 'float', possible loss of data
+  main.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17763.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Generating Code...
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\audioplayer.cpp(38): warning C4715: 'AudioPlayer::setAudioComponent': not all control paths return a value
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\audioplayer.cpp(109): warning C4715: 'AudioPlayer::setPlayLength': not all control paths return a value
+a:\documents\visual studio 2017\projects\snake_direct2d\snake_direct2d\audioplayer.cpp(100): warning C4715: 'AudioPlayer::playAt': not all control paths return a value
+  Snake_Direct2D.vcxproj -> A:\Documents\Visual Studio 2017\Projects\Snake_Direct2D\x64\Debug\Snake_Direct2D.exe
