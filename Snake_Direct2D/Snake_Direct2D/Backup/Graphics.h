@@ -5,6 +5,7 @@
 #include <wincodec.h>
 #include <d3d11.h>
 
+#include "resource.h"
 #include "EngineTools.h"
 
 class Engine;
@@ -39,8 +40,7 @@ public:
 	void DrawFillRect(float x, float y, float w, float h, D2D1::ColorF color);
 	void DrawFillRect(float x, float y, float w, float h, float r, float g, float b, float a);
 
-	void DrawImage(ID2D1Bitmap* bmp, float x, float y, float w, float h, float opacity = 1.0f);
-	void DrawSpriteSheet(ID2D1Bitmap* bmp, float x, float y, float w, float h, float sx, float xy, float sw, float sh, float opacity = 1.0f);
+	void DrawBitmap(ID2D1Bitmap* bmp, float x, float y, float w, float h, float opacity = 1.0f);
 
 	void CreateBitmapFromFile(ID2D1Bitmap** bmp, LPCWSTR fileName);
 	void CreateBitmapFromResource(ID2D1Bitmap** bmp, const char* lpType, int lpName);

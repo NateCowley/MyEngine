@@ -6,7 +6,6 @@
 #include "DrawableObject.h"
 
 class Graphics;
-class SpriteSheet;
 
 /// <summary>
 /// Used to display a static image.
@@ -15,16 +14,12 @@ class Image : public DrawableObject
 {
 public:
 
-	Image();
-
 	/// <summary>
 	/// Creates a bitmap using the image specified with filename.
 	/// It is necessary to put an 'L' before the filename parameter 
 	/// when passing it in.
 	/// </summary>
 	Image(LPCWSTR filename, Graphics* graphics);
-
-	Image(std::string filename, Graphics* graphics);
 
 	/// <summary>
 	/// Creates a bitmap using the specified resource.
@@ -43,6 +38,5 @@ public:
 	virtual void draw(Graphics* g);
 
 private:
-	friend class SpriteSheet;
 	ID2D1Bitmap* bmp;
 };

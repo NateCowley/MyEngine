@@ -3,10 +3,6 @@
 class Graphics;
 
 // Game interface
-
-/// <summary>
-/// Provides the basic controls for a game object. Should only be created and loaded into the Engine.
-/// </summary>
 class Game
 {
 public:

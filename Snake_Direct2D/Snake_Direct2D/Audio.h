@@ -26,19 +26,42 @@
 #define OFFSET_SECONDS(x) 44100*x
 #endif
 
+/// <summary>
+/// The audio section of the engine. It is designed as a singleton.
+/// </summary>
 class Audio
 {
 public:
 	
+	/// <summary>
+	/// Retrieve the instance for use
+	/// </summary>
 	static Audio* getInstance();
 	~Audio();
 
+	/// <summary>
+	/// Create the Audio object. If it returns false, the Audio section has failed, and cannot be used.
+	/// </summary>
 	bool Init();
+
+	/// <summary>
+	/// Cleanup the Audio object. Must be called before deleting the object.
+	/// </summary>
 	void Shutdown();
 
+	/// <summary>
+	/// Retrieve the IXAudio2 device for use elsewhere
+	/// </summary>
 	IXAudio2* getDevice();
 
+	/// <summary>
+	/// Disable audio at the source
+	/// </summary>
 	void SuspendAudio();
+
+	/// <summary>
+	/// Resume audio at the source
+	/// </summary>
 	void ResumeAudio();
 
 private:
@@ -46,6 +69,9 @@ private:
 	static Audio* instance;
 	Audio();
 
+	/// <summary>
+	/// Check if the audio engine is available. Internal use only
+	/// </summary>
 	bool audioIsAvailable;
 
 	IXAudio2* pXAudio2;

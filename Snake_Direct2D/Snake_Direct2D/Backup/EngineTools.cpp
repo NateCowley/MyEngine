@@ -99,23 +99,3 @@ void EngineTools::GlobalShutDown()
 {
 	PostMessage(GetActiveWindow(), WM_CLOSE, 0, 0);
 }
-
-TCHAR* EngineTools::strToTCHAR(std::string str)
-{
-	return (TCHAR*)str.c_str();
-}
-
-TCHAR* EngineTools::charToTCHAR(char* chrs)
-{
-	return strToTCHAR(chrs);
-}
-
-LPCWSTR EngineTools::strToLPCWSTR(std::string str)
-{
-	return (LPCWSTR)str.c_str();
-}
-
-LPCWSTR EngineTools::charToLPCWSTR(char* chrs)
-{
-	return strToLPCWSTR(chrs);
-}

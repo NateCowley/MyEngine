@@ -3,7 +3,7 @@
 class GameObject
 {
 public:
-	double xPos = 0, yPos = 0;
+	double xPos, yPos;
 	double width, height;
 
 	GameObject();

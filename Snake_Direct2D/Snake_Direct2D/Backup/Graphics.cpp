@@ -138,14 +138,9 @@ void Graphics::DrawFillRect(float x, float y, float w, float h, float r, float g
 	renderTarget->FillRectangle(D2D1::Rect(x, y, x + w, y + h), sBrush);
 }
 
-void Graphics::DrawImage(ID2D1Bitmap* bmp, float x, float y, float w, float h, float opacity)
+void Graphics::DrawBitmap(ID2D1Bitmap* bmp, float x, float y, float w, float h, float opacity)
 {
 	renderTarget->DrawBitmap(bmp, D2D1::RectF(x, y, x + w, y + h), opacity, D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, D2D1::RectF(0.0f, 0.0f, bmp->GetSize().width, bmp->GetSize().height));
-}
-
-void Graphics::DrawSpriteSheet(ID2D1Bitmap* bmp, float x, float y, float w, float h, float sx, float sy, float sw, float sh, float opacity)
-{
-	renderTarget->DrawBitmap(bmp, D2D1::RectF(x, y, x + w, y + h), opacity, D2D1_BITMAP_INTERPOLATION_MODE::D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR, D2D1::RectF(sx, sy, sw, sh));
 }
 
 void Graphics::CreateBitmapFromFile(ID2D1Bitmap** bmp, LPCWSTR fileName)

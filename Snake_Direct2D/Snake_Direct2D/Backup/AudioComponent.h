@@ -35,7 +35,7 @@ public:
 	/// <summary>
 	/// Most common constructor, supply it with the path to a .wav file.
 	/// </summary>
-	AudioComponent(std::string strFileName);
+	AudioComponent(TCHAR *strFileName);
 
 	/// <summary>
 	/// Unfinished constructor, will eventually allow the AudioComponent 

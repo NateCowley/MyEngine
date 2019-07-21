@@ -18,7 +18,7 @@ Snake::Snake(int x, int y, int w, int h) : DrawableObject(x, y, w, h, color)
 
 	bits.push_back(new SnakeBit(x, y));
 
-	//ac = new AudioComponent("A:\\downloads\\Def Leppard - Hysteria.wav");
+	ac = new AudioComponent((TCHAR*)"A:\\downloads\\Def Leppard - Hysteria.wav");
 	ap.setAudioComponent(ac);
 	ap.playAt(60);
 	ap.setPlayLength(2);
@@ -80,8 +80,7 @@ void Snake::keyDown(int key)
 	}
 	case DIK_SPACE:
 	{
-		//ap.startPlaying();
-		chopOffAt(2);
+		ap.startPlaying();
 		break;
 	}
 	}
@@ -143,15 +142,7 @@ void Snake::draw(Graphics* g)
 
 void Snake::addSnakeBit()
 {
-	if (bits.size() < 2)
-	{
-		bits.push_back(new SnakeBit(bits[bits.size() - 1]->xLocation - xDirection * width, bits[bits.size() - 1]->yLocation - yDirection * height));
-	}
-	else
-	{
-		bits.push_back(new SnakeBit(bits[bits.size() - 1]->xLocation, bits[bits.size() - 1]->yLocation));
-	}
-	
+	bits.push_back(new SnakeBit(bits[bits.size() - 1]->xLocation, bits[bits.size() - 1]->yLocation));
 }
 
 bool Snake::isColliding(int xPos, int yPos)

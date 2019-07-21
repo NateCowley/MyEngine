@@ -36,14 +36,8 @@ public:
 	bool Init();
 	void Shutdown();
 
-	HRESULT FindChunk(HANDLE hFile, DWORD fourcc, DWORD &dwChunkSize, DWORD &dwChunkDataPosition);
-	HRESULT ReadChunkData(HANDLE hFile, void *buffer, DWORD buffersize, DWORD bufferoffset);
-	HRESULT OpenFile(TCHAR *strFileName);
-	HRESULT OpenResourceFile(const char* lpName, int lpType);
-
-	bool loadFile(const char* fileName, std::vector<BYTE>& audioData, WAVEFORMATEX** waveFormatEx, unsigned int& waveFormatLength);
 	IXAudio2* getDevice();
-	
+
 	void SuspendAudio();
 	void ResumeAudio();
 
@@ -56,7 +50,6 @@ private:
 
 	IXAudio2* pXAudio2;
 	IXAudio2MasteringVoice* pMasterVoice;
-	IXAudio2SourceVoice* pSourceVoice;
 	WAVEFORMATEXTENSIBLE wfx = { 0 };
 	XAUDIO2_BUFFER buffer = { 0 };
 	IMFAttributes* sourceReaderConfiguration;

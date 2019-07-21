@@ -119,7 +119,7 @@ bool Engine::InitWindow()
 		return false;
 	}
 
-	RECT wnd = { 0, 0, clientWidth, clientHeight };
+	RECT wnd = { 0, 0, 800, 800 };
 	RECT dt;
 
 	GetClientRect(GetDesktopWindow(), &dt);
@@ -271,7 +271,19 @@ void Engine::Start()
 	long elapsed = 0;
 	long lastTick = stime.wMilliseconds;
 
-	SpriteSheet ss = SpriteSheet(L"C:\\users\\lupus\\downloads\\kirby.png", graphics->getInstance(), 30, 30);
+	/*
+	AudioComponent* ac = new AudioComponent((TCHAR*)"A:\\Downloads\\Sky Run.wav");
+	AudioPlayer ap(ac);
+
+	ap.setLoop(144, 10, 2);
+	ap.startPlaying();
+	*/
+	/*
+	if (FAILED(audio->OpenFile((TCHAR*)"A:\\Downloads\\Sky Run.wav")))
+	{
+		return;
+	}
+	*/
 
 	while (message.message != WM_QUIT && !shuttingDown)
 	{
@@ -296,7 +308,7 @@ void Engine::Start()
 
 			// START RENDER
 			graphics->BeginDraw();
-			
+
 			currentGame->Draw(graphics);
 			// END RENDER
 			graphics->EndDraw();

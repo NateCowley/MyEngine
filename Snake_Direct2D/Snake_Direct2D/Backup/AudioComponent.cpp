@@ -5,9 +5,9 @@ AudioComponent::AudioComponent()
 
 }
 
-AudioComponent::AudioComponent(std::string strFileName)
+AudioComponent::AudioComponent(TCHAR *strFileName)
 {
-	if (SUCCEEDED(OpenFile(EngineTools::strToTCHAR(strFileName))))
+	if (SUCCEEDED(OpenFile(strFileName)))
 	{
 		available = true;
 	}

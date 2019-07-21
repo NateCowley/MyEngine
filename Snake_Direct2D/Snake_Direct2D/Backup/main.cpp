@@ -9,7 +9,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 {
 	Engine* engine = Engine::getInstance();
 
-	if (!engine->Init(hInstance, nCmdShow, 400, 400))
+	if (!engine->Init(hInstance, nCmdShow, 800, 800))
 	{
 		delete engine;
 		return -1;

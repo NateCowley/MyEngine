@@ -9,9 +9,7 @@
 #include "EngineTools.h"
 #include "Game.h"
 #include "WindowListener.h"
-
-//for testing purposes
-#include "SpriteSheet.h"
+#include "AudioPlayer.h"
 
 /// <summary>
 /// The engine. Handles window creation, input capture, and graphical output.

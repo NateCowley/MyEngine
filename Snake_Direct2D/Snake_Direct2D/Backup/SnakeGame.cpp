@@ -16,6 +16,8 @@ void SnakeGame::Init()
 
 	EngineTools::GetClientResolution(clientWidth, clientHeight);
 
+	//MessageBox(NULL, (std::to_string(clientWidth) + " " + std::to_string(clientHeight)).c_str(), "", MB_OK);
+
 	gridWidth = clientWidth / ratio;
 	gridHeight = clientHeight / ratio;
 

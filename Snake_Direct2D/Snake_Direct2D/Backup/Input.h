@@ -2,12 +2,10 @@
 
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
-#pragma comment(lib, "xinput.lib")
 
 #include <dinput.h>
 #include <vector>
 #include <string>
-#include <Xinput.h>
 
 #include "MouseListener.h"
 #include "KeyboardListener.h"
