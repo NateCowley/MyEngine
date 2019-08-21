@@ -60,6 +60,9 @@
     <ClCompile Include="AudioPlayer.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="ME_Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawableObject.h">
@@ -111,6 +114,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AudioPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ME_Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

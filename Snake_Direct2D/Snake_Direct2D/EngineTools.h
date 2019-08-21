@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include <string>
 #include <atlstr.h>
+#include "ME_Window.h"
 
 /// <summary>
 /// Used to expedite deleting a single object.

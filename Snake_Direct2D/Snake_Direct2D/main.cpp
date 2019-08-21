@@ -9,20 +9,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE prevInstance, LPWSTR cmd, int
 {
 	Engine* engine = Engine::getInstance();
 
-	if (!engine->Init(hInstance, nCmdShow, 400, 400))
+	if (!engine->Init(hInstance, nCmdShow, new SnakeGame()))
 	{
 		delete engine;
 		return -1;
 	}
 
-	SnakeGame* sg = new SnakeGame();
-
-	engine->loadGame(sg);
-
 	engine->Start();
 
 	delete engine;
-	// sg is not deleted because the engine deletes it
 
 	return 0;
 }

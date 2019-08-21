@@ -9,6 +9,7 @@
 #include "EngineTools.h"
 #include "Game.h"
 #include "WindowListener.h"
+#include "ME_Window.h"
 
 //for testing purposes
 #include "SpriteSheet.h"
@@ -20,7 +21,7 @@
 /// 
 /// It functions primarily as a singleton-type object.
 /// </summary>
-class Engine
+class Engine : public WindowListener
 {
 public:
 	/// <summary>
@@ -34,7 +35,7 @@ public:
 	/// Creates the window, graphics, and input objects. Must be called before 
 	/// prior to anything else. Cannot be called multiple times.
 	/// </summary>
-	bool Init(HINSTANCE hInstance, int nCmdShow, int width, int height);
+	bool Init(HINSTANCE hInstance, int nCmdShow, Game* game, int width = 400, int height = 400);
 
 	/// <summary>
 	/// Shuts down and cleans up the window, graphics, and input objects. 
@@ -42,46 +43,6 @@ public:
 	/// accidental NullPointerExceptions.
 	/// </summary>
 	void ShutDown();
-
-	/// <summary>
-	/// Retrieves the HWND of the current window.
-	/// </summary>
-	HWND getHandle();
-
-	/// <summary>
-	/// Retrieves the HINSTANCE of the current window.
-	/// </summary>
-	HINSTANCE getHINSTANCE();
-
-	/// <summary>
-	/// Retrieves the WNDCLASSEX of the current window.
-	/// </summary>
-	WNDCLASSEX getWindowClass();
-
-	/// <summary>
-	/// Retrieves the current dimensions of the client RECT
-	/// </summary>
-	RECT getClientDimensions();
-
-	/// <summary>
-	/// Retrieves the width of the client.
-	/// </summary>
-	int getClientWidth();
-
-	/// <summary>
-	/// Retrieves the height of the client.
-	/// </summary>
-	int getClientHeight();
-
-	/// <summary>
-	/// Retrieves the width of the window.
-	/// </summary>
-	int getWindowWidth();
-
-	/// <summary>
-	/// Retrieves the height of the window.
-	/// </summary>
-	int getWindowHeight();
 
 	/// <summary>
 	/// If a Game has been loaded, begin the game loop. 
@@ -104,23 +65,22 @@ public:
 	/// </summary>
 	void loadGame(Game* game);
 
+	virtual void Resized();
+	virtual void Minimized();
+	virtual void Maximized();
+	virtual void Closing();
+
 private:
 	static Engine* instance;
+	ME_Window* window;
 	Input* input;
 	Graphics* graphics;
 	Audio* audio;
 	Game* currentGame;
 
-	HWND windowHandle;
-	HINSTANCE hInstance;
-	WNDCLASSEX windowClass;
-	int nCmdShow;
-	LPCSTR windowTitle;
-
 	const char* lpszClassName = "MainWindow";
 
 	RECT screenRect;
-	int clientWidth, clientHeight;
 	bool beenInitialized = false;
 	bool shuttingDown;
 
@@ -132,7 +92,7 @@ private:
 	/// <summary>
 	/// Create the win32 window that the engine will run in.
 	/// </summary>
-	bool InitWindow();
+	bool InitWindow(HINSTANCE hInstance, int nCmdShow, int clientWidth, int clientHeight, std::string title = "Main Window");
 
 	/// <summary>
 	/// Create the Graphics object to be used for drawing to the screen.

@@ -2,32 +2,6 @@
 
 Engine* Engine::instance = 0;
 
-LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-	switch (uMsg)
-	{
-	case WM_CLOSE:
-	{
-		// call Stop to break out of the loop that was started in Start()
-		Engine::getInstance()->Stop();
-		DestroyWindow(hwnd);
-		return 0;
-	}
-	case WM_DESTROY:
-	{
-		PostQuitMessage(0);
-		return 0;
-	}
-	case WM_SIZING:
-	{
-		MessageBox(NULL, "resizing", "", MB_OK);
-		return 0;
-	}
-	}
-
-	return DefWindowProc(hwnd, uMsg, wParam, lParam);
-}
-
 Engine::Engine()
 {
 	currentGame = NULL;
@@ -36,8 +10,6 @@ Engine::Engine()
 Engine::~Engine()
 {
 	ShutDown();
-
-	UnregisterClass(windowTitle, hInstance);
 }
 
 Engine* Engine::getInstance()
@@ -50,12 +22,14 @@ Engine* Engine::getInstance()
 	return instance;
 }
 
-bool Engine::Init(HINSTANCE hInstance, int nCmdShow, int width, int height)
+bool Engine::Init(HINSTANCE hInstance, int nCmdShow, Game* game, int width, int height)
 {
 	if (beenInitialized)
 	{
 		return true;
 	}
+
+	loadGame(game);
 
 	if (hInstance == NULL || width <= 0 || height <= 0)
 	{
@@ -67,13 +41,7 @@ bool Engine::Init(HINSTANCE hInstance, int nCmdShow, int width, int height)
 		instance = new Engine();
 	}
 
-	this->hInstance = hInstance;
-	this->nCmdShow = nCmdShow;
-	clientWidth = width;
-	clientHeight = height;
-	this->windowTitle = "Snake";
-
-	if (!InitWindow())
+	if (!InitWindow(hInstance, nCmdShow, width, height))
 	{
 		return false;
 	}
@@ -83,7 +51,7 @@ bool Engine::Init(HINSTANCE hInstance, int nCmdShow, int width, int height)
 		return false;
 	}
 
-	ShowWindow(windowHandle, nCmdShow);
+	ShowWindow(window->getHandle(), nCmdShow);
 
 	if (!InitInput())
 	{
@@ -100,52 +68,23 @@ bool Engine::Init(HINSTANCE hInstance, int nCmdShow, int width, int height)
 	return true;
 }
 
-bool Engine::InitWindow()
+bool Engine::InitWindow(HINSTANCE hInstance, int nCmdShow, int clientWidth, int clientHeight, std::string title)
 {
-	ZeroMemory(&windowClass, sizeof(WNDCLASSEX));
-	windowClass.cbSize = sizeof(WNDCLASSEX);
-	windowClass.hbrBackground = (HBRUSH)COLOR_WINDOW;
-	windowClass.hInstance = hInstance;
-	windowClass.lpfnWndProc = WindowProc;
-	windowClass.lpszClassName = lpszClassName;
-	windowClass.style = CS_HREDRAW | CS_VREDRAW;
-
-	RegisterClassEx(&windowClass);
-
-	int screenWidth, screenHeight;
-
-	if (!EngineTools::GetDesktopResolution(screenWidth, screenHeight))
+	if (!window)
 	{
-		return false;
+		window = new ME_Window();
 	}
 
-	RECT wnd = { 0, 0, clientWidth, clientHeight };
-	RECT dt;
+	window->addWindowListener(this);
 
-	GetClientRect(GetDesktopWindow(), &dt);
-
-	AdjustWindowRect(&wnd, WS_OVERLAPPEDWINDOW, FALSE);
-
-	int w = (wnd.right - wnd.left);
-	int h = (wnd.bottom - wnd.top);
-	int x = ((dt.right - dt.left) - w) / 2;
-	int y = ((dt.bottom - dt.top) - h) / 2;
-
-	windowHandle = CreateWindow(lpszClassName, windowTitle, WS_OVERLAPPEDWINDOW, x, y, w, h, NULL, NULL, hInstance, NULL);
-
-	if (!windowHandle)
-	{
-		return false;
-	}
-
-	return true;
+	return window->Init(hInstance, nCmdShow, clientWidth, clientHeight, title);
 }
 
 bool Engine::InitGraphics()
 {
 	graphics = Graphics::getInstance();
 
-	if (!graphics->Init(windowHandle))
+	if (!graphics->Init(window->getHandle()))
 	{
 		return false;
 	}
@@ -157,7 +96,7 @@ bool Engine::InitInput()
 {
 	input = Input::getInstance();
 
-	if (!input->Init(hInstance, windowHandle, clientWidth, clientHeight))
+	if (!input->Init(window->getHINSTANCE(), window->getHandle(), window->getClientWidth(), window->getClientHeight()))
 	{
 		return false;
 	}
@@ -187,6 +126,12 @@ void Engine::ShutDown()
 		delete currentGame;
 	}
 
+	if (window)
+	{
+		window->ShutDown();
+		delete window;
+	}
+
 	if (graphics)
 	{
 		graphics->Shutdown();
@@ -204,48 +149,6 @@ void Engine::ShutDown()
 		audio->Shutdown();
 		delete audio;
 	}
-}
-
-HWND Engine::getHandle()
-{
-	return windowHandle;
-}
-
-HINSTANCE Engine::getHINSTANCE()
-{
-	return hInstance;
-}
-
-WNDCLASSEX Engine::getWindowClass()
-{
-	return windowClass;
-}
-
-RECT Engine::getClientDimensions()
-{
-	return screenRect;
-}
-
-int Engine::getClientWidth()
-{
-	return clientWidth;
-}
-
-int Engine::getClientHeight()
-{
-	return clientHeight;
-}
-
-int Engine::getWindowWidth()
-{
-	// TODO: get size of full window, includeing outline/toolbar
-	return clientWidth;
-}
-
-int Engine::getWindowHeight()
-{
-	// TODO: get size of full window, includeing outline/toolbar
-	return clientWidth;
 }
 
 void Engine::Start()
@@ -271,12 +174,10 @@ void Engine::Start()
 	long elapsed = 0;
 	long lastTick = stime.wMilliseconds;
 
-	SpriteSheet ss = SpriteSheet(L"C:\\users\\lupus\\downloads\\kirby.png", graphics->getInstance(), 30, 30);
-
 	while (message.message != WM_QUIT && !shuttingDown)
 	{
 		// check if there's a message
-		if (PeekMessage(&message, windowHandle, 0, 0, PM_REMOVE))
+		if (PeekMessage(&message, window->getHandle(), 0, 0, PM_REMOVE))
 		{
 			// if there's a message, dispatch to WindowProc
 			DispatchMessage(&message);
@@ -304,6 +205,8 @@ void Engine::Start()
 			lastTick = current;
 		}
 	}
+
+	MessageBox(NULL, "", "", MB_OK);
 }
 
 void Engine::Stop()
@@ -319,4 +222,24 @@ Game* Engine::getCurrentGame()
 void Engine::loadGame(Game* game)
 {
 	currentGame = game;
+}
+
+void Engine::Resized()
+{
+
+}
+
+void Engine::Minimized()
+{
+
+}
+
+void Engine::Maximized()
+{
+
+}
+
+void Engine::Closing()
+{
+	shuttingDown = true;
 }
